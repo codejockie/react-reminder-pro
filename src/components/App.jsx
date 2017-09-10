@@ -8,15 +8,17 @@ class App extends Component {
     super(props);
 
     this.state = {
-      text: ''
+      text: '',
+      dueDate: ''
     }
   }
 
   addReminder() {
     const { addReminder } = this.props;
-    const { text } = this.state;
+    const { dueDate, text } = this.state;
     
-    addReminder(text);
+    console.log('this.state.dueDate', dueDate);
+    addReminder(text, dueDate);
   }
 
   deleteReminder(id) {
@@ -34,12 +36,12 @@ class App extends Component {
           return (
               <li key={reminder.id} className="list-group-item">
                 <div className="list-item">{reminder.text}</div>
-                <div
-                  className="list-item delete-button"
-                  onClick={() => this.deleteReminder(reminder.id)}
-              >
-                &#x2715;
-              </div>
+                  <div
+                    className="list-item delete-button"
+                    onClick={() => this.deleteReminder(reminder.id)}
+                  >
+                  &#x2715;
+               </div>
               </li>
             );
           })
@@ -60,6 +62,11 @@ class App extends Component {
               className="form-control"
               placeholder="I have to..."
               onChange={event => this.setState({ text: event.target.value })}
+            />
+            <input
+              className="form-control"  
+              type="datetime-local"
+              onChange={event => this.setState({ dueDate: event.target.value })}
             />
           </div>
           <button
